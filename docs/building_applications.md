@@ -40,7 +40,7 @@ Run the init-build.sh in the microkit directory with the example you want to bui
 
 ```bash
 # Enter microkit directory
-cd /host/seL4Test/build-MaaXBoard-AArch64
+cd /host/seL4Test/microkit
 # build application
 ../init-build.sh "<example you want to build>"
 ```
