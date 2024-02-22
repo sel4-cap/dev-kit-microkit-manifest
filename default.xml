@@ -2,7 +2,7 @@
   <remote name="sel4-cap" fetch="https://github.com/sel4-cap"/>
   <remote name="seL4" fetch="https://github.com/seL4"/>   
   
-  <project name="microkit.git" path="microkit" remote="sel4-cap" revision="dev_kit" upstream="dev_kit" dest-branch="dev_kit"/>
+  <project name="Dev-Kit-Microkit.git" path="microkit" remote="sel4-cap" revision="main" upstream="main" dest-branch="main"/>
   <project name="u-boot.git" path="microkit/example/maaxboard/uboot-driver-example/libubootdrivers/uboot" remote="sel4-cap" revision="microkit" upstream="microkit" dest-branch="microkit"/>
   <project name="picolibc.git" path="picolibc" remote="sel4-cap" revision="dev_kit" upstream="dev_kit" dest-branch="dev_kit"/>
   <project name="seL4.git" path="seL4" remote="seL4" revision="92f0f3ab28f00c97851512216c855f4180534a60" upstream="microkit" dest-branch="microkit"/>
