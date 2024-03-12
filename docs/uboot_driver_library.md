@@ -69,14 +69,7 @@ One of the core mechanisms for providing a software interface to a hardware devi
 
 The memory addresses that a U-Boot driver uses for communication with a device can be either read from the device tree (i.e. from a device's `reg` property) or in some cases can be hard-coded into the driver.
 
-At this point it should be noted that U-Boot source code is intended to be executed in an environment with direct access to the system's physical address space; however, the library is executed within a virtual address space provided by seL4. As such, the addresses used by U-Boot drivers are *physical* addresses which are not directly accessible by the library. To work around this issue:
-
-1. During library initialisation the list of all platform-dependent devices that need to be accessed must be provided. For each device:
-   - The device's physical address range is read from the device tree.
-   - The device's physical address range is mapped into the virtual address space through use of the IO mapping routines provided by seL4's platform support library.
-   - The mapping between the physical address range and the mapped virtual address range is stored within the `sel4_io_map` package (part of the library's wrapper functionality).
-
-2. When a driver attempts to perform memory mapped IO it calls architecture-dependent routines from the `io.h` header, e.g. `readl` or `writel`. A stubbed version of the `io.h` header is provided that uses the `sel4_io_map` package to translate the physical addresses provided by the driver to the equivalent address mapped into the library's virtual address space.
+At this point it should be noted that U-Boot source code is intended to be executed in an environment with direct access to the system's physical address space; physical addresses are mapped in the system file in microkit.
 
 U-Boot drivers performing memory mapped IO should perform seamlessly without the need for any modifications to the driver.
 
@@ -116,7 +109,7 @@ The console subsystem's `stdin` file, however, is used. For example, if a USB ke
 The wrapper header file `uboot_print.h` provides a set of macros that map:
 
 - All U-Boot standard output routines onto calls to the C library `printf` routine.
-- All U-Boot logging routines onto the seL4 platform support library `ZF_LOG*` routines at an equivalent logging level.
+- All U-Boot logging routines onto `UBOOT_LOG` routines at an equivalent logging level.
 
 ### Initialisation
 
@@ -124,7 +117,7 @@ As part of library initialisation, any U-Boot subsystems that require explicit i
 
 Initialisation of the library comprises:
 
-- Initialisation of the memory mapped IO and DMA wrappers;
+- Initialisation of the DMA wrappers;
 - Initialisation of the monotonic timer;
 - Initialisation of the Linker Lists data structure;
 - Initialisation of the Global Data data structure;
@@ -135,8 +128,8 @@ Initialisation of the library comprises:
 
 When calling the `initialise_uboot_wrapper` routine the following must be provided:
 
-- The I/O operations data structure from the platform support library. These routines enable the library to access the seL4 device tree and to perform memory mapping and DMA operations. The routines are provided by CAmkES on creation of a single threaded component.
-- The list of device tree paths containing physical addresses to be memory mapped (through the `reg` property).
+- A DMA manager which can be initialised with a call to the `microkit_dma_manager` routine.
+- A pointer to the device tree blob.
 - The list of device tree paths for the devices to enable. Note that all sub-nodes of the device tree paths will be automatically enabled; only the root node for the required devices need to be listed. All other nodes in the device tree will be marked as disabled.
 
 A worked example for use of the `initialise_uboot_wrapper` routine is provided by the [`uboot-driver-example` test application](uboot_driver_usage.md#test-application-uboot-driver-example) for the Avnet MaaXBoard.
@@ -165,7 +158,7 @@ This modular structure of the CMake file is intended to allow for the library to
 
 Users of the library should be aware of its limitations, and potential workarounds for those limitations.
 
-1. **Thread safety**: The library is not thread safe; as such it is the responsibility of the user to serialise access to any single instance of the library. Note, however, that multiple instances of the library may be used. For example, two instances of the library could be used concurrently, each held within separate CAmkES components. IF multiple instances of the library are used, it is the responsibility of the user to ensure that each instance is using disjoint devices, i.e. two instances of the library would not both be able to access the same USB device; however, it should be possible for one instance to access an Ethernet device whilst a second instance accesses a USB device (see the [case study application](case_study_intro.md) for an example of this).
+1. **Thread safety**: The library is not thread safe; as such it is the responsibility of the user to serialise access to any single instance of the library. Note, however, that multiple instances of the library may be used. For example, two instances of the library could be used concurrently, each held within separate protection domain. IF multiple instances of the library are used, it is the responsibility of the user to ensure that each instance is using disjoint devices, i.e. two instances of the library would not both be able to access the same USB device; however, it should be possible for one instance to access an Ethernet device whilst a second instance accesses a USB device (see the [case study application](case_study_intro.md) for an example of this).
 
 2. **Performance**: Do not expect great performance from the library. The underlying U-Boot drivers have tended to prioritise simplicity over performance; for example the SPI driver for the Avnet MaaXBoard does not support the use of DMA transfers even though the underlying device can perform DMA transfers. Additionally, the library wrapper adds additional layers of address translations and data copying (e.g. in its support of memory mapped IO and DMA) as part of the trade-off for minimising changes necessary to the U-Boot drivers.
 
