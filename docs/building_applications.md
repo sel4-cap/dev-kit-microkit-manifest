@@ -42,10 +42,10 @@ Run the init-build.sh in the microkit directory with the example you want to bui
 # Enter microkit directory
 cd /host/seL4Test/microkit
 # build application
-./init-build.sh "<example you want to build>"
+./init-build.sh -DMICROKIT_APP=uboot-driver-example -DPLATFORM=maaxboard 
 ```
 
-On completion of the compilation, the resulting executable is available at `/host/seL4Test/microkit/example/maaxboard/<example built>\example-build` on the build environment, or available at `/<host_directory>/seL4Test/microkit/example/maaxboard/<example built>\example-build` on the host machine, where `/<host_directory>` was the directory on the host mapped to the build environment.
+On completion of the compilation, the resulting executable is available at `/host/seL4Test/microkit/example/maaxboard/uboot-driver-example/example-build` on the build environment, or available at `/<host_directory>/seL4Test/microkit/example/maaxboard/uboot-driver-example/example-build` on the host machine, where `<host_directory>` was the directory on the host mapped to the build environment.
 
 ## Appendices
 

@@ -36,7 +36,7 @@ Sections below give a basic overview of the test applications and how to build a
 
 ### Overview of the `uboot-driver-example` test application
 
-The source file at `camkes/apps/uboot-driver-example/components/Test/src/test.c` represents the script for the test application. It contains `run_uboot_cmd("...")` calls to U-Boot commands that are supported by the library. The set of supported commands can be readily seen in the `cmd_tbl` entries of `projects_libs/libubootdrivers/include/plat/maaxboard/plat_driver_data.h`.
+The source file at `microkit/example/maaxboard/uboot-driver-example/uboot-driver-example.c` represents the script for the test application. It contains `run_uboot_cmd("...")` calls to U-Boot commands that are supported by the library. The set of supported commands can be readily seen in the `cmd_tbl` entries of `microkit/libubootdrivers/include/plat/maaxboard/plat_driver_data.h`.
 
 It is left to the reader to look through the test script in detail, but the features demonstrated include the following.
 
@@ -57,7 +57,7 @@ Other utility commands are exercised, such as `dm tree`, which is useful to foll
 
 #### Configuration for different platforms
 
-Although `uboot-driver-example` was created to demonstrate the device drivers developed for this MaaXBoard developer kit, it is configurable to support other platforms. For example, in the [worked example appendix for the Odroid-C2](appendices/add_odroidc2.md), a small subset of drivers has been developed for that platform, and the `test.c` source file for `uboot-driver-example` uses the preprocessor macros `CONFIG_PLAT_MAAXBOARD` and `CONFIG_PLAT_ODROIDC2` to configure which commands are run for each platform. By default, all tests are enabled for an unrecognised platform, but this would be readily configured for a new platform's `CONFIG_PLAT_...` preprocessor macro.
+Although `uboot-driver-example` was created to demonstrate the device drivers developed for this MaaXBoard developer kit, it is configurable to support other platforms. For example, in the [worked example appendix for the Odroid-C2](appendices/add_odroidc2.md), a small subset of drivers has been developed for that platform, and the `uboot-driver-example.c` source file for `uboot-driver-example` uses the preprocessor macros `CONFIG_PLAT_MAAXBOARD` and `CONFIG_PLAT_ODROIDC2` to configure which commands are run for each platform. By default, all tests are enabled for an unrecognised platform, but this would be readily configured for a new platform's `CONFIG_PLAT_...` preprocessor macro.
 
 ### Instructions for running `uboot-driver-example`
 
@@ -69,14 +69,14 @@ cd /host/uboot_test
 ```
 
 ```bash
-repo init -u https://github.com/sel4devkit/camkes-manifest.git
+repo init -u https://github.com/sel4-cap/seL4-dev-kit-microkit-manifest.git
 ```
 
 ```bash
 repo sync
 ```
 
-The test application includes an Ethernet operation (`ping`) with hard-coded IP addresses; these need to be customised for an individual's environment. The following lines of the source file `projects/camkes/apps/uboot-driver-example/components/Test/src/test.c` should be edited:
+The test application includes an Ethernet operation (`ping`) with hard-coded IP addresses; these need to be customised for an individual's environment. The following lines of the source file `microkit/example/maaxboard/uboot-driver-example/uboot-driver-example.c` should be edited:
 
 ```c
 run_uboot_command("setenv ipaddr xxx.xxx.xxx.xxx"); // IP address to allocate to MaaXBoard
@@ -99,20 +99,20 @@ cd build
 ```
 
 ```bash
-../init-build.sh -DCAMKES_APP=uboot-driver-example -DPLATFORM=maaxboard -DSIMULATION=FALSE
+./init-build.sh -DMICROKIT_APP=uboot-driver-example -DPLATFORM=maaxboard
 ```
 
 ```bash
 ninja
 ```
 
-A successful build will result in an executable file called `capdl-loader-image-arm-maaxboard` in the `images` subdirectory. This should be copied to a file named `sel4_image` and then made available to the preferred loading mechanism, such as TFTP, as per [Execution on Target Platform](execution_on_target_platform.md).
+A successful build will result in an executable file called `sel4_image` in the `images` subdirectory. This file should be made available to the preferred loading mechanism, such as TFTP, as per [Execution on Target Platform](execution_on_target_platform.md).
 
 ## Test application: `picoserver_uboot`
 
 ### Overview of the `picoserver_uboot` test application
 
-It is not the purpose of this developer kit to give a CAmkES tutorial (e.g. see [seL4's documentation](https://docs.sel4.systems/projects/camkes/)), but this application is based on the following CAmkES model:
+It is not the purpose of this developer kit to give a Microkit tutorial (e.g. see `(https://trustworthy.systems/projects/microkit/tutorial/welcome.html)), but this application is based on the following CAmkES model:
 
 ![Picoserver CAmkES overview](figures/picoserver-camkes.png)
 
@@ -128,7 +128,7 @@ cd /host/uboot_pico
 ```
 
 ```bash
-repo init -u https://github.com/sel4devkit/camkes-manifest.git
+repo init -u https://github.com/sel4-cap/seL4-dev-kit-microkit-manifest.git
 ```
 
 ```bash
