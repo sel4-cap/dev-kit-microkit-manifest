@@ -1,3 +1,5 @@
+# To be implemented 
+
 # Library Extension - New Platform
 
 This section documents the required actions and guidance to add support for a new platform to the library.

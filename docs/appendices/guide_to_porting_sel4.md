@@ -25,7 +25,7 @@ dtc -o temp.dtb temp.dts
 dtc -o maaxboard.dts temp.dtb
 ```
 
-Following creation of the platform's DTS file it should be stored in the `/tools/dts` folder of the `seL4` git repository and the `update-dts.sh` script (located in the same location) updated to reference the new DTS file.
+Following creation of the platform's DTS file it should be stored in the `boards` directory 
 
 ## Previous Worked Examples
 

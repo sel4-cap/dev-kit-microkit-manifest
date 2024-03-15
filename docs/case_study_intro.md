@@ -1,3 +1,5 @@
+# To be implemented
+
 # Case Study Introduction
 
 This section works through an example to show some of our device drivers being used within a larger CAmkES application. It is nominally labelled as a 'security domain' demonstrator (named `security_demo`) but this is mainly in the context of being a keyboard-based encryption device that was inspired by an Enigma machine! It is intentionally simple and its main purpose is to show data separation and to provide worked examples of inter-component communications using different seL4 mechanisms.
