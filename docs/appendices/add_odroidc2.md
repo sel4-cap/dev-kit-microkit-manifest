@@ -1,3 +1,5 @@
+# To be implemented 
+
 # Odroid-C2 Platform - Worked Example
 
 As part of the review of the [New Platform](uboot_library_add_platform.md)
