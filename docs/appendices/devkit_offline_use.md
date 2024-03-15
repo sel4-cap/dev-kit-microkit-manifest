@@ -67,25 +67,18 @@ The Docker image contains all the required toolchain for building seL4 and seL4 
 
 ## Downloading source code for offline use
 
-The source code for seL4 and the seL4 developer kit is stored across multiple repositories. The `repo` command line tool is used alongside manifest files to make downloading and managing the code from these multiple repositories easier. A manifest file details what repositories and versions of those repositories are required for a certain project. There are two main manifests for the seL4 developer kit:
+The source code for seL4 and the seL4 developer kit is stored across multiple repositories. The `repo` command line tool is used alongside manifest files to make downloading and managing the code from these multiple repositories easier. A manifest file details what repositories and versions of those repositories are required for a certain project. There is one main manifests for the seL4 developer kit:
 
-- `camkes-manifest` - used to download the source for building CAmkES applications;
-- `sel4test-manifest` - used for downloading the source for building the seL4Test program for the Avnet MaaXBoard.
+- `microkit-manifest` - used to download the source for building Microkit applications
 
 In order to download source code for offline use, an internet-connected computer is required with the `repo` tool installed. (See [here](https://gerrit.googlesource.com/git-repo/) for details on how to install `repo`.)
 
 1. From the internet-connected computer, create a new folder to store the source code and navigate into it from the command line.
 
-2. In the new folder, to download the source for `camkes-manifest`, run the following command to initialise the `repo` tool in this folder:
+2. In the new folder, to download the source for `microkit-manifest`, run the following command to initialise the `repo` tool in this folder:
 
     ```bash
-    repo init -u https://github.com/sel4devkit/camkes-manifest.git
-    ```
-
-    A similar command would be used to download the source for `sel4test-manifest`:
-    
-    ```bash
-    repo init -u https://github.com/sel4/sel4test-manifest.git
+    repo init -u repo init -u https://github.com/sel4-cap/seL4-dev-kit-microkit-manifest.git
     ```
 
 3. Once the initialisation has completed, a synchronisation must be performed in order to download the source code from the various repositories. To do this run `repo sync` from the same folder.
