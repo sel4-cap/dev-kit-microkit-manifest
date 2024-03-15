@@ -91,7 +91,7 @@ run_uboot_command("setenv netmask 255.255.255.0");
 run_uboot_command("ping 8.8.8.8"); // An example internet IP address (Google DNS)
 ```
 
-From the `/host/uboot_test` directory, execute the following commands:
+From the `/host/uboot_test/microkit` directory, execute the following commands:
 
 ```bash
 ./init-build.sh -DMICROKIT_APP=uboot-driver-example -DPLATFORM=maaxboard
