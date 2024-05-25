@@ -21,22 +21,8 @@ The build environment is a Debian Linux system pre-installed with all of the req
 Installation of the build environment comprises the download of a pre-built Docker image into the Docker tools. This can be performed from the command line on the host machine as follows:
 
 ```bash
-docker pull ghcr.io/sel4devkit/maaxboard:latest
+git clone "git@github.com:sel4-cap/microkit-maaxboard-dockerfiles.git"
 ```
-
-During download of the image progress is reported in the following format:
-
-```bash
-% docker pull ghcr.io/sel4devkit/maaxboard:latest
-latest: Pulling from sel4devkit/maaxboard
-0e29546d541c: Pull complete 
-c2db25fafa50: Pull complete 
-00af15d3de8e: Downloading [==========>                                ]  241.7MB/1.188GB
-c6749363a298: Download complete 
-521655c15371: Download complete 
-```
-
-On completion of the download the build environment is ready for use.
 
 ## Usage
 
@@ -44,15 +30,14 @@ When using the build environment, a directory from the host machine must be mapp
 
 __WARNING__: Any changes made outside the build environment's `/host` directory will be lost when the build environment is exited.
 
-For the purposes of the worked examples in this section the `/scratch/seL4` directory on the host machine is mapped to the build environment's `/host` directory; please note that the directory must be supplied as an absolute path and not as a relative path, and within a Windows environment it needs to include a drive letter (such as `C:/scratch/seL4`). It is expected that the user will choose a different directory and modify the commands as required.
+For the purposes of the worked examples in this section the `/home/<user-name>/dev-kit-test/` directory on the host machine is mapped to the build environment's `/host` directory; please note that the directory must be supplied as an absolute path and not as a relative path, and within a Windows environment it needs to include a drive letter (such as `C:/home/<user-name>/dev-kit-test/`). It is expected that the user will choose a different directory and modify the commands as required.
 
-The following command executed from the host machine will start the build environment:
+The following command executed from the microkit-maaxboard-dockerfiles folder of the host machine will start the build environment:
 
 ```bash
-docker run -it --rm -v /scratch/seL4:/host:z \
-    ghcr.io/sel4devkit/maaxboard:latest
+make user IMAGE=sdk HOST_DIR=/home/<user-name>/dev-kit-test/ HOME_DIR=~/
 ```
 
-On build environment startup the user will be placed into an interactive shell within the `/host` directory as a user named `dev-user` with `sudo` privileges.
+On build environment startup the user will be placed into an interactive shell within the `/host` directory.
 
 How the build environment can be used to compile an seL4 binary for the MaaXBoard is documented in the [Building Applications](building_applications.md) section.
