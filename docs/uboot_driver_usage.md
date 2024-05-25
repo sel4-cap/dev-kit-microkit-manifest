@@ -4,7 +4,6 @@ This section outlines the library's API and provides instructions for running tw
 
 - [Library API](#library-api)
 - [Test application: `uboot-driver-example`](#test-application-uboot-driver-example)
-- [Test application: `picoserver_uboot`](#test-application-picoserver_uboot)
 
 ## Library API
 
