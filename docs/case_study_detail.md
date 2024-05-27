@@ -57,7 +57,7 @@ All data is passed from the high-side to the low-side through a shared circular 
 
 ## Example of Protection Domain Communication
 
-The circular buffer shared between the Crypto protection domain (high-side) and the Transmitter protection domains (low-side) is used in this section as a detailed worked example of microkit data flow and control flow.
+The circular buffer shared between the Crypto protection domain (high-side) and the Transmitter protection domain (low-side) is used in this section as a detailed worked example of microkit data flow and control flow.
 
 The buffer has been deliberately designed for the purpose of this worked example to use two types of protection domain interface listed in the [seL4 microkit manual](https://github.com/sel4-cap/microkit-old/blob/main/docs/manual.md), i.e. Memory region and Notification.
 
@@ -65,7 +65,7 @@ The buffer has been deliberately designed for the purpose of this worked example
 
 At its core the circular buffer is a simple character array with *head* and *tail* holding indexes associated with the start and end of the used portion of the array.
 
-- Function implementations for the circular buffer and included in src/circular_buffer.c
+- Function implementations for the circular buffer and included in `src/circular_buffer`c.
 - A memory region is a contiguous range of physical memory and the memory region for the circular buffer is mapped onto both the Crypto and Transmitter protection domains. A virtual address, caching attributes and permissions (read, write and execute) are given to each protection domain.
 
 This results in an instance of the circular buffer type being made available in an area of memory shared by both the Crypto and Transmitter protection domains.
