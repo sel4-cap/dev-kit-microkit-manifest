@@ -26,9 +26,9 @@ The following paragraphs briefly describe the data flow, from left to right, hig
 
 Plaintext characters are typed on a keyboard and read by the KeyReader component. These characters are then 'encrypted' by the Crypto component to transform them into ciphertext. Protected procedure is an appropriate connector type for the character-by-character data flow between KeyReader and Crypto (labelled as PP on the diagram). Since this application is more concerned with demonstrating seL4 concepts than crypto-algorithms, the Enigma machine's rotors and plugboard are replaced with a simple [ROT13](https://en.wikipedia.org/wiki/ROT13) algorithm!
 
-The encrypted characters are transferred to the Transmitter component via a shared buffer. The buffer is implemented as a shared memory region.
+The encrypted characters are transferred to the Transmitter PD via a shared circular buffer, where Crypto writes to the head of the buffer and Transmitter reads from its tail. The buffer is implemented as a shared memory region.
 
-When Crypto has finished writing to the buffer it sends a notification to the Transmitter PD to signify that writing to the buffer has been completed. Transmitter acts upon notifications by reading all available characters from the buffer.
+When the buffer is full Crypto notifies Transmitter that the buffer is full and the data needs to be read via the notification mechanism. Transmitter acts upon notifications by reading all available characters until the buffer is empty.
 
 ### Device Drivers
 
