@@ -27,7 +27,7 @@ cd /host/seL4Test
 Clone the code and dependencies:
 
 ```bash
-repo init -u https://github.com/sel4-cap/seL4-dev-kit-microkit-manifest.git
+repo init -u https://github.com/seL4/sel4test-manifest.git
 ```
 
 ```bash
@@ -36,16 +36,39 @@ repo sync
 
 ## Building
 
-Run the init-build.sh in the microkit directory with the example you want to build as one of the arguments 
+To support building with multiple different configurations within a single project, a directory is created for each configuration to contain the build artefacts. Different configurations are used for different platforms, architectures, or other build options.
+
+For the purposes of this example, two configurations are supported for the MaaXBoard: one for AArch32 and one for AArch64.
+
+The executable files that are produced can be executed on the target platform by following the guidance in the [Execution on Target Platform](execution_on_target_platform.md) section.
+
+### AArch32 Build Instructions
 
 ```bash
-# Enter microkit directory
-cd /host/seL4Test/microkit
-# build application
-./init-build.sh -DMICROKIT_APP=uboot-driver-example -DPLATFORM=maaxboard 
+# Create directory for compilation artefacts
+mkdir /host/seL4Test/build-MaaXBoard-AArch32
+cd /host/seL4Test/build-MaaXBoard-AArch32
+# Configure build directory
+../init-build.sh -DPLATFORM=maaxboard -DAARCH32=TRUE
+# Compile
+ninja
 ```
 
-On completion of the compilation, the resulting executable is available at `/host/seL4Test/microkit/example/maaxboard/uboot-driver-example/example-build` on the build environment, or available at `/<host_directory>/seL4Test/microkit/example/maaxboard/uboot-driver-example/example-build` on the host machine, where `<host_directory>` was the directory on the host mapped to the build environment.
+On completion of the compilation, the resulting executable is available at `/host/seL4Test/build-MaaXBoard-AArch32/images/sel4test-driver-image-arm-maaxboard` on the build environment, or available at `/<host_directory>/seL4Test/build-MaaXBoard-AArch32/images/sel4test-driver-image-arm-maaxboard` on the host machine, where `/<host_directory>` was the directory on the host mapped to the build environment.
+
+### AArch64 Build Instructions
+
+```bash
+# Create directory for compilation artefacts
+mkdir /host/seL4Test/build-MaaXBoard-AArch64
+cd /host/seL4Test/build-MaaXBoard-AArch64
+# Configure build directory
+../init-build.sh -DPLATFORM=maaxboard -DAARCH64=TRUE
+# Compile
+ninja
+```
+
+On completion of the compilation, the resulting executable is available at `/host/seL4Test/build-MaaXBoard-AArch64/images/sel4test-driver-image-arm-maaxboard` on the build environment, or available at `/<host_directory>/seL4Test/build-MaaXBoard-AArch64/images/sel4test-driver-image-arm-maaxboard` on the host machine, where `/<host_directory>` was the directory on the host mapped to the build environment.
 
 ## Appendices
 
