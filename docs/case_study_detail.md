@@ -20,13 +20,15 @@ microkit
 │      
 ├───include
 │   └───plat
-│       ├───mmc_platform_devices.h
-│       └───usb_platform_devices.h
+│       └───<platform>
+│            ├───mmc_platform_devices.h
+│            └───usb_platform_devices.h
 │
 │
 ├───CMakeLists.txt
-└───example
-│   └───maaxboard
+│
+├───example
+│   └───<platform>
 │       └───security_demo
 │           └───security_demo.system
 ```
