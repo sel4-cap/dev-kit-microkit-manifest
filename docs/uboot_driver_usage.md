@@ -54,7 +54,7 @@ Other utility commands are exercised, such as `dm tree`, which is useful to foll
 
 #### Configuration for different platforms
 
-Although `uboot-driver-example` was created to demonstrate the device drivers developed for this MaaXBoard developer kit, it is configurable to support other platforms. For example, in the [worked example appendix for the Odroid-C2](appendices/add_odroidc2.md), a small subset of drivers has been developed for that platform, and the `uboot-driver-example.c` source file for `uboot-driver-example` uses the preprocessor macros `CONFIG_PLAT_MAAXBOARD` and `CONFIG_PLAT_ODROIDC2` to configure which commands are run for each platform. By default, all tests are enabled for an unrecognised platform, but this would be readily configured for a new platform's `CONFIG_PLAT_...` preprocessor macro.
+Although `uboot-driver-example` was created to demonstrate the device drivers developed for this MaaXBoard developer kit, it is configurable to support other platforms. By default, all tests are enabled for an unrecognised platform, but this would be readily configured for a new platform's `CONFIG_PLAT_...` preprocessor macro.
 
 ### Instructions for running `uboot-driver-example`
 
@@ -99,4 +99,3 @@ A successful build will result in an executable file called `sel4_image` in the 
 ## Appendices
 
 - [SPI Bus Pressure Sensor](./appendices/spi_bmp280.md)
-- [Odroid-C2 Worked Example](./appendices/add_odroidc2.md)
