@@ -25,7 +25,7 @@ cd microkit
 ```
 
 ```bash
-../init-build.sh -DCAMKES_APP=security_demo -DPLATFORM=maaxboard
+./init-build.sh -DMICROKIT_APP=security_demo -DPLATFORM=maaxboard
 ```
 
 ## Preparing to Run
